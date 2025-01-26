@@ -1,5 +1,7 @@
 package entsecao014fixacaofinal;
 
+import exceptions.BusinessException;
+
 public class Account {
 	
 	private Integer number;
@@ -43,15 +45,15 @@ public class Account {
     	balance += amount;
     }
     public void withdraw(double amount) {
+    	validadeWithdraw(amount);
     	balance -= amount;
     }
-    public String validadeWithdraw(double amount) {
+    private void validadeWithdraw(double amount) {
     	if (amount > getWithdrawLimit()) {
-			return "Erro de saque: a quantia excede o limit";
+			throw new BusinessException("Erro de saque: a quantia excede o limit");
 		}
 		if (amount > getBalance()) {
-			return "Erro de saque: saldo insuficiente";
+			throw new BusinessException("Erro de saque: saldo insuficiente");
 		}
-        return null;
     }
 }
